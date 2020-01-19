@@ -25,6 +25,16 @@ public class PlayerController2D : MonoBehaviour
 
     bool isGrounded;
 
+    [SerializeField]
+    public float topLimit;
+    [SerializeField]
+    public float leftLimit;
+    [SerializeField]
+    public float rightLimit;
+    [SerializeField]
+    public float bottomLimit;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,9 +56,13 @@ public class PlayerController2D : MonoBehaviour
 
 
 
-        if (Input.GetKey("d") || Input.GetKey("left"))
+        if (Input.GetKey("d") || Input.GetKey("left")) // LEFT
         {
-            rigidBody2D.velocity = new Vector2(-runSpeed, rigidBody2D.velocity.y);
+            if(rigidBody2D.position.x > leftLimit)
+            {
+                rigidBody2D.velocity = new Vector2(-runSpeed, rigidBody2D.velocity.y);
+            }
+            
             spriteRenderer.flipX = true;
 
             if(isGrounded)
@@ -56,9 +70,13 @@ public class PlayerController2D : MonoBehaviour
                 animator.Play("Player_run");
             }
 
-        } else if(Input.GetKey("q") || Input.GetKey("right"))
+        } else if(Input.GetKey("q") || Input.GetKey("right")) // DROITE
         {
-            rigidBody2D.velocity = new Vector2(runSpeed, rigidBody2D.velocity.y);
+            if (rigidBody2D.position.x < rightLimit)
+            {
+                rigidBody2D.velocity = new Vector2(runSpeed, rigidBody2D.velocity.y);
+            }
+                
             spriteRenderer.flipX = false;
 
             if (isGrounded)
@@ -76,10 +94,28 @@ public class PlayerController2D : MonoBehaviour
             }
         }
 
+
+        // SAUT
         if(Input.GetKey("z") || Input.GetKey("space") || Input.GetKey("up") && isGrounded)
         {
-            rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, jumpSpeed);
+            if (rigidBody2D.position.y < topLimit)
+            {
+                rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, jumpSpeed);
+            }  
             animator.Play("Player_jump");
         }
+    }
+
+
+
+    //Gizmo = élément graphiques dans l'éditeur pour les devs
+    private void OnDrawGizmos()
+    {
+        //Carré pour la caméra
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector2(leftLimit, topLimit), new Vector2(rightLimit, topLimit));
+        Gizmos.DrawLine(new Vector2(leftLimit, topLimit), new Vector2(leftLimit, bottomLimit));
+        Gizmos.DrawLine(new Vector2(leftLimit, bottomLimit), new Vector2(rightLimit, bottomLimit));
+        Gizmos.DrawLine(new Vector2(rightLimit, bottomLimit), new Vector2(rightLimit, topLimit));
     }
 }
