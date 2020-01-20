@@ -5,18 +5,22 @@ using UnityEngine;
 public class PlayerAimWeapon : MonoBehaviour
 {
     private Transform aimTransform;
+    private Animator animator;
 
+    [SerializeField]
+    GameObject gun;
 
     private void Awake()
     {
         this.aimTransform = transform.Find("Aim");
+        this.animator = gun.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         this.gunRotation();
-
+        this.gunShooting();
     }
 
 
@@ -33,7 +37,11 @@ public class PlayerAimWeapon : MonoBehaviour
 
     private void gunShooting()
     {
-
+        if(Input.GetMouseButtonDown(0)) // Click gauche
+        {
+            print("lol");
+            animator.SetTrigger("Shoot");
+        }
     }
 
 
