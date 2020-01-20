@@ -61,7 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CameraFollow2D.cs" />
+    <Compile Include="Assets\PlayerAimWeapon.cs" />
     <Compile Include="Assets\PlayerController2D.cs" />
+    <Compile Include="Assets\utils\utils.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Antoine/Desktop/Scolaire/Master1Uqar/ConceptionJeuxVideos/GameConceptionFirstProject/FirstGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

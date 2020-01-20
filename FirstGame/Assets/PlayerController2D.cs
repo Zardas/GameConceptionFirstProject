@@ -35,6 +35,15 @@ public class PlayerController2D : MonoBehaviour
     public float bottomLimit;
 
 
+    [SerializeField]
+    public GameObject gun;
+
+    [SerializeField]
+    public GameObject hand1;
+
+    [SerializeField]
+    public GameObject hand2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,11 +73,18 @@ public class PlayerController2D : MonoBehaviour
             }
             
             spriteRenderer.flipX = true;
+            gun.GetComponent<SpriteRenderer>().flipY = true;
+            hand1.GetComponent<SpriteRenderer>().flipY = true;
+            hand2.GetComponent<SpriteRenderer>().flipY = true;
 
-            if(isGrounded)
+            if (isGrounded)
             {
                 animator.Play("Player_run");
             }
+
+
+
+
 
         } else if(Input.GetKey("q") || Input.GetKey("right")) // DROITE
         {
@@ -78,11 +94,17 @@ public class PlayerController2D : MonoBehaviour
             }
                 
             spriteRenderer.flipX = false;
+            gun.GetComponent<SpriteRenderer>().flipY = false;
+            hand1.GetComponent<SpriteRenderer>().flipY = true;
+            hand2.GetComponent<SpriteRenderer>().flipY = true;
 
             if (isGrounded)
             {
                 animator.Play("Player_run");
             }
+
+
+
 
         } else
         {
@@ -93,6 +115,11 @@ public class PlayerController2D : MonoBehaviour
                 animator.Play("Player_idle");
             }
         }
+
+
+
+
+
 
 
         // SAUT
