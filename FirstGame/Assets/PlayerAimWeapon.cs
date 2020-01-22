@@ -39,7 +39,7 @@ public class PlayerAimWeapon : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0)) // Click gauche
         {
-            print("lol");
+    
             animator.SetTrigger("Shoot");
         }
     }
