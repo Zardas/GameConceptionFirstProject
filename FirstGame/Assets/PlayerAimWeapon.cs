@@ -21,6 +21,7 @@ public class PlayerAimWeapon : MonoBehaviour
     {
         this.gunRotation();
         this.gunShooting();
+
     }
 
 

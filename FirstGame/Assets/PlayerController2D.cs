@@ -24,6 +24,7 @@ public class PlayerController2D : MonoBehaviour
     float runSpeed = 2;
 
     bool isGrounded;
+    bool faceRight;
 
     [SerializeField]
     public float topLimit;
@@ -45,6 +46,8 @@ public class PlayerController2D : MonoBehaviour
         this.animator = GetComponent<Animator>();
         this.rigidBody2D = GetComponent<Rigidbody2D>();
         this.spriteRenderer = GetComponent<SpriteRenderer>();
+
+        this.faceRight = true;
     }
 
     private void FixedUpdate()
@@ -67,10 +70,14 @@ public class PlayerController2D : MonoBehaviour
                 rigidBody2D.velocity = new Vector2(-runSpeed, rigidBody2D.velocity.y);
             }
             
-            spriteRenderer.flipX = true;
-            gun.GetComponent<SpriteRenderer>().flipY = true;
+            if(this.faceRight)
+            {
+                this.flip();
+            }
+            //spriteRenderer.flipX = true;
+            //gun.GetComponent<SpriteRenderer>().flipY = true;
 
-            if (isGrounded)
+            if (this.isGrounded)
             {
                 animator.Play("Player_run");
             }
@@ -86,10 +93,14 @@ public class PlayerController2D : MonoBehaviour
                 rigidBody2D.velocity = new Vector2(runSpeed, rigidBody2D.velocity.y);
             }
                 
-            spriteRenderer.flipX = false;
-            gun.GetComponent<SpriteRenderer>().flipY = false;
+            if(!this.faceRight)
+            {
+                this.flip();
+            }
+            //spriteRenderer.flipX = false;
+            //gun.GetComponent<SpriteRenderer>().flipY = false;
 
-            if (isGrounded)
+            if (this.isGrounded)
             {
                 animator.Play("Player_run");
             }
@@ -125,6 +136,13 @@ public class PlayerController2D : MonoBehaviour
     }
 
 
+    private void flip()
+    {
+        this.faceRight = !this.faceRight;
+        transform.Rotate(0f, 180f, 0f);
+        //gun.GetComponent<SpriteRenderer>().flipY = !this.faceRight; This messes up with the fire point for some reasons
+
+    }
 
     //Gizmo = élément graphiques dans l'éditeur pour les devs
     private void OnDrawGizmos()
